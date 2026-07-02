@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mas-framework"
+version = "0.1.0"
+description = "Memory-Aware Swarm Framework for OO Design Pattern Enforcement"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "chromadb",
+    "pyyaml"
+]
+
+[project.scripts]
+# This line is the magic. It maps the global "mas" command
+# directly to the main() function inside core/cli.py
+mas = "core.cli:main"
+
+[tool.setuptools.packages.find]
+# Tells the build system to look for Python packages in the root directory
+where = ["."]
+include = ["core*", "agents*", "memory*"]

@@ -1,0 +1,145 @@
+# ==============================================================================
+# MAS FRAMEWORK - MEMORY PALACE CONFIGURATION
+# ==============================================================================
+# This file dictates your team's local "Ground Truth".
+# While the MAS framework natively understands architectural patterns (RAG),
+# this file overrides the AI with your specific team constraints, security
+# standards, and compliance rules.
+#
+# Schema:
+# - trigger: The keyword in the prompt or filename that activates the rule.
+# - severity: INFO, WARNING, or CRITICAL.
+# - constraint: The absolute rule the AI must follow.
+# ==============================================================================
+
+rules:
+  # ----------------------------------------------------------------------------
+  # SECTION 1: SECURITY & COMPLIANCE (Active by Default)
+  # ----------------------------------------------------------------------------
+  - trigger: "auth"
+    severity: "CRITICAL"
+    constraint: "Never implement custom cryptographic algorithms. Use industry-standard libraries (e.g., BCrypt for passwords). Never log tokens or PII."
+
+  - trigger: "sql"
+    severity: "CRITICAL"
+    constraint: "Never use raw string concatenation for SQL queries to prevent injection attacks. Always use parameterized queries, PreparedStatements, or the established ORM."
+
+  - trigger: "api"
+    severity: "CRITICAL"
+    constraint: "All public-facing API endpoints must implement rate-limiting headers and return a unified, sanitized JSON error object on failure. Do not leak stack traces to the client."
+
+  - trigger: "file"
+    severity: "WARNING"
+    constraint: "Any file I/O operations must validate the file path to prevent Directory Traversal attacks. Never trust user-provided file names."
+
+  # ----------------------------------------------------------------------------
+  # SECTION 2: TEAM STYLE & ARCHITECTURE CONSTRAINTS (Active by Default)
+  # ----------------------------------------------------------------------------
+  - trigger: "injection"
+    severity: "CRITICAL"
+    constraint: "Field injection (e.g., @Autowired) is strictly banned. You must use final fields and Constructor Injection for all dependencies."
+
+  - trigger: "exception"
+    severity: "WARNING"
+    constraint: "Do not catch generic 'Exception'. Catch specific exceptions and wrap them in the custom domain exception hierarchy (e.g., PaymentProcessingException)."
+
+
+  # ----------------------------------------------------------------------------
+  # SECTION 3: DESIGN PATTERN ENFORCEMENT (Examples)
+  # ----------------------------------------------------------------------------
+  # The rules below demonstrate how to enforce local team standards onto
+  # universal design patterns. Uncomment and modify them to fit your project.
+  # ----------------------------------------------------------------------------
+
+  # --- CREATIONAL PATTERNS ---
+  # - trigger: "builder"
+  #   severity: "WARNING"
+  #   constraint: "Prefer using native language features (like Lombok @Builder in Java or Data Classes in Python) over manually writing Builder classes, unless complex validation is required during step-by-step construction."
+
+  # - trigger: "prototype"
+  #   severity: "CRITICAL"
+  #   constraint: "When implementing Prototype, you must explicitly handle deep copies for all nested mutable objects to prevent memory-reference leakage."
+
+  # - trigger: "singleton"
+  #   severity: "CRITICAL"
+  #   constraint: "To prevent reflection and serialization attacks, all Singletons must be implemented using the Enum pattern. Do not use double-checked locking."
+
+  # - trigger: "factory method"
+  #   severity: "CRITICAL"
+  #   constraint: "All factory methods must return abstraction interfaces, never concrete classes. The client must not know the underlying implementation."
+
+  # - trigger: "abstract factory"
+  #   severity: "WARNING"
+  #   constraint: "Abstract Factories must be registered as singletons in the central Dependency Injection container upon application startup."
+
+
+  # --- STRUCTURAL PATTERNS ---
+  # - trigger: "adapter"
+  #   severity: "WARNING"
+  #   constraint: "All external 3rd-party Adapter classes must log their payload transformations (inbound and outbound) using the central com.enterprise.Logger."
+
+  # - trigger: "bridge"
+  #   severity: "CRITICAL"
+  #   constraint: "Bridge implementations must be injected via constructor. Never instantiate the platform-specific implementation directly inside the abstraction."
+
+  # - trigger: "composite"
+  #   severity: "WARNING"
+  #   constraint: "When traversing a Composite tree, implement a max-depth circuit breaker (e.g., 10 levels) to prevent infinite recursion and StackOverflow errors."
+
+  # - trigger: "decorator"
+  #   severity: "CRITICAL"
+  #   constraint: "Decorators must never silently suppress exceptions from the wrapped component. Exceptions must be allowed to bubble up or be explicitly re-thrown."
+
+  # - trigger: "facade"
+  #   severity: "CRITICAL"
+  #   constraint: "Facades are strictly for orchestration. They must contain ZERO business logic. If you are calculating or mutating data in a Facade, you are doing it wrong."
+
+  # - trigger: "flyweight"
+  #   severity: "WARNING"
+  #   constraint: "Flyweight factories must utilize thread-safe caching mechanisms (like ConcurrentHashMap) to prevent race conditions during high-concurrency access."
+
+  # - trigger: "proxy"
+  #   severity: "CRITICAL"
+  #   constraint: "All remote or network-bound Proxies must implement a circuit-breaker pattern (e.g., Resilience4j) with a defined timeout to prevent cascading system failures."
+
+
+  # --- BEHAVIORAL PATTERNS ---
+  # - trigger: "chain of responsibility"
+  #   severity: "WARNING"
+  #   constraint: "Every handler in the chain must check for context cancellation/timeouts before executing its heavy processing to save CPU cycles on dead requests."
+
+  # - trigger: "command"
+  #   severity: "CRITICAL"
+  #   constraint: "Every Command implementation that mutates system state MUST provide a deterministic 'undo()' method to allow for safe transaction rollbacks."
+
+  # - trigger: "iterator"
+  #   severity: "INFO"
+  #   constraint: "Prefer using standard language-native iterators (like Java Streams or Python generators) instead of creating custom Iterator interfaces, unless the traversal logic is highly domain-specific."
+
+  # - trigger: "mediator"
+  #   severity: "WARNING"
+  #   constraint: "The Mediator must decouple components using an asynchronous EventBus or message queue. Do not use direct, synchronous method calls inside the Mediator."
+
+  # - trigger: "memento"
+  #   severity: "CRITICAL"
+  #   constraint: "If a Memento snapshot contains any Personally Identifiable Information (PII) or passwords, the state object MUST be encrypted in memory."
+
+  # - trigger: "observer"
+  #   severity: "CRITICAL"
+  #   constraint: "To prevent memory leaks (the Lapsed Listener problem), publishers must store subscribers using Weak References. Unsubscription must be guaranteed on component teardown."
+
+  # - trigger: "state"
+  #   severity: "INFO"
+  #   constraint: "Every state transition must be logged to the audit trail, including the timestamp, the previous state, the new state, and the invoking user ID."
+
+  # - trigger: "strategy"
+  #   severity: "CRITICAL"
+  #   constraint: "Strategies must be completely stateless. Do not store request-specific data in strategy class fields, as strategy singletons are shared across threads."
+
+  # - trigger: "template method"
+  #   severity: "CRITICAL"
+  #   constraint: "The core Template Method itself must be marked as 'final' to mathematically guarantee that subclasses cannot alter the overall algorithm sequence."
+
+  # - trigger: "visitor"
+  #   severity: "WARNING"
+  #   constraint: "All Visitor interfaces must include a 'visitDefault()' fallback method to prevent the application from crashing if a new Element type is introduced but the Visitor isn't updated."

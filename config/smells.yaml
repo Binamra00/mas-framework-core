@@ -1,0 +1,13 @@
+# smells.yaml
+agentic_smells:
+  - name: "God Agent Violation"
+    description: "The AI modified more than one method or class at a time. It must adhere to the Single Responsibility Principle and only touch the exact isolated entity requested."
+    severity: "CRITICAL"
+
+  - name: "Context Bleed"
+    description: "The AI hallucinated imports, variables, or context that were never provided in the repository DOM signatures."
+    severity: "HIGH"
+
+  - name: "Prompt Drift"
+    description: "The generated patch successfully wrote code, but the logic drifted away from the specific user request."
+    severity: "MEDIUM"

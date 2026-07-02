@@ -1,0 +1,5 @@
+{
+  "injection": "Correction: Never use Spring @Autowired field injection. You must strictly use final fields and constructor injection.",
+  "adapter": "Correction: All adapters must be placed in the `src/core/adapters/` directory and log failures via the central Logger.",
+  "interface": "Correction: Interface files must be prefixed with 'I' (e.g., IPaymentGateway)."
+}

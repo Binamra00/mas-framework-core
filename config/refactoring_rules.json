@@ -1,0 +1,32 @@
+{
+  "safety_policies": {
+    "TOTAL": {
+      "description": "Localized or metadata-only changes. Lowest risk.",
+      "allowed_natures": ["COSMETIC", "CHURN"],
+      "inspector_action": "syntax_audit_only",
+      "ignore_srp_violations": true,
+      "requires_human_approval": true
+    },
+    "HIGH": {
+      "description": "Scope-locked micro-mutations and syntax modernization.",
+      "allowed_natures": ["COSMETIC", "STRUCTURAL", "MIGRATION"],
+      "inspector_action": "scope_locked_audit",
+      "ignore_srp_violations": true,
+      "requires_human_approval": true
+    },
+    "MEDIUM": {
+      "description": "Standard intra-class logic shifts and extractions.",
+      "allowed_natures": ["STRUCTURAL", "BEHAVIORAL", "TESTING"],
+      "inspector_action": "standard_agentic_smell_audit",
+      "ignore_srp_violations": false,
+      "requires_human_approval": true
+    },
+    "LOW": {
+      "description": "Heavy API, contract, or multi-file architectural changes. Highest risk.",
+      "allowed_natures": ["STRUCTURAL", "API_CONTRACT"],
+      "inspector_action": "maximum_paranoia_audit",
+      "ignore_srp_violations": false,
+      "requires_human_approval": true
+    }
+  }
+}

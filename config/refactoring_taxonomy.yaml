@@ -1,0 +1,974 @@
+# config/refactoring_taxonomy.yaml
+#
+# SAFETY LEVELS: TOTAL, HIGH, MEDIUM, LOW
+# NATURES: COSMETIC, STRUCTURAL, BEHAVIORAL, API_CONTRACT, MIGRATION, TESTING
+
+taxonomy:
+  # ============================================================================
+  # CATEGORY 1: FOWLER'S BOOK (40 Rules)
+  # ============================================================================
+  - id: "RM_Fowler_1"
+    name: "Extract Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Pull a fragment of code out of an existing method and place it into a newly created method."
+    execution_constraint: "Create the new method within the same class and replace the original fragment with a call to the new method."
+
+  - id: "RM_Fowler_2"
+    name: "Inline Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Replace calls to a method with the method's content and delete the method."
+    execution_constraint: "Ensure local variable names do not clash when inlining the method body."
+
+  - id: "RM_Fowler_3"
+    name: "Rename Method"
+    category: "Fowler"
+    nature: "COSMETIC"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Change the name of a method to better explain its purpose."
+    execution_constraint: "Rename the method declaration and update all known caller invocations."
+
+  - id: "RM_Fowler_4"
+    name: "Move Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a method to the class where it is used most."
+    execution_constraint: "Transfer the method body to the target class and update the original method to delegate to the new location or remove it."
+
+  - id: "RM_Fowler_5"
+    name: "Move Attribute"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a field/attribute to the class that uses it most."
+    execution_constraint: "Create the field in the target class, remove it from the source, and update all references."
+
+  - id: "RM_Fowler_6"
+    name: "Pull Up Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a method from subclasses to their shared superclass."
+    execution_constraint: "Move the method definition to the parent class and remove identical implementations from child classes."
+
+  - id: "RM_Fowler_7"
+    name: "Pull Up Attribute"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a field from subclasses to their shared superclass."
+    execution_constraint: "Declare the attribute in the superclass and remove it from subclasses."
+
+  - id: "RM_Fowler_8"
+    name: "Push Down Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a method from a superclass to the specific subclasses that use it."
+    execution_constraint: "Remove the method from the parent and define it in the relevant child classes."
+
+  - id: "RM_Fowler_9"
+    name: "Push Down Attribute"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a field from a superclass only to those subclasses that need it."
+    execution_constraint: "Remove the field from the parent and declare it in the child classes."
+
+  - id: "RM_Fowler_10"
+    name: "Extract Superclass"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Create a parent class and move common fields/methods from existing classes into it."
+    execution_constraint: "Scaffold the new superclass and alter target classes to inherit from it."
+
+  - id: "RM_Fowler_11"
+    name: "Extract Interface"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Create an interface from a subset of a class's public methods."
+    execution_constraint: "Scaffold the new interface file and append the 'implements' keyword to the target class."
+
+  - id: "RM_Fowler_12"
+    name: "Move Class"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move an existing class into a different package or directory."
+    execution_constraint: "Update package declarations and all dependent imports across the project."
+
+  - id: "RM_Fowler_13"
+    name: "Rename Class"
+    category: "Fowler"
+    nature: "COSMETIC"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Change the name of a class to reflect its purpose accurately."
+    execution_constraint: "Rename the class definition, update the filename, and update all instantiation references."
+
+  - id: "RM_Fowler_14"
+    name: "Extract and Move Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Extract a code fragment into a new method and place it in a different class."
+    execution_constraint: "Combine extraction and movement. Ensure the original scope delegates to the new class instance."
+
+  - id: "RM_Fowler_15"
+    name: "Rename Package"
+    category: "Fowler"
+    nature: "COSMETIC"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Change the name of a namespace or package."
+    execution_constraint: "Update all package statements and imports matching this namespace."
+
+  - id: "RM_Fowler_16"
+    name: "Move and Rename Class"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a class to a new package and rename it simultaneously."
+    execution_constraint: "Execute both a file relocation and identifier update globally."
+
+  - id: "RM_Fowler_17"
+    name: "Extract Class"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Extract a cohesive subset of fields and methods into a new class."
+    execution_constraint: "Create the new class and replace the old fields with a single instance of the new class."
+
+  - id: "RM_Fowler_18"
+    name: "Extract Subclass"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Create a subclass for features used only by some instances of a class."
+    execution_constraint: "Scaffold the subclass, inherit from the parent, and push down the specific features."
+
+  - id: "RM_Fowler_19"
+    name: "Extract Variable"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Extract a complex expression into a well-named local variable."
+    execution_constraint: "Assign the expression to a local variable and replace the original expression with the variable."
+
+  - id: "RM_Fowler_20"
+    name: "Inline Variable"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Replace references to a variable with the expression it holds."
+    execution_constraint: "Swap the variable usages with its assigned value and delete the variable declaration."
+
+  - id: "RM_Fowler_21"
+    name: "Parameterize Variable"
+    category: "Fowler"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Convert a hardcoded local variable or value into a method parameter."
+    execution_constraint: "Add the parameter to the method signature and replace local usages."
+
+  - id: "RM_Fowler_22"
+    name: "Extract Attribute"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Promote a local variable to a class-level field."
+    execution_constraint: "Declare the field at the class level and update local assignments."
+
+  - id: "RM_Fowler_23"
+    name: "Move and Rename Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a method to another class and alter its name."
+    execution_constraint: "Combine relocation and renaming. Update all caller invocations."
+
+  - id: "RM_Fowler_24"
+    name: "Move and Inline Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Move a method to a new class and immediately inline its execution."
+    execution_constraint: "Resolve the method body directly into the caller scope of the target class."
+
+  - id: "RM_Fowler_25"
+    name: "Encapsulate Attribute"
+    category: "Fowler"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Make a public field private and provide accessors (getters/setters)."
+    execution_constraint: "Change field visibility and route all existing accesses through the new methods."
+
+  - id: "RM_Fowler_26"
+    name: "Parameterize Attribute"
+    category: "Fowler"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Pass a class attribute's value via a constructor or method rather than internal assignment."
+    execution_constraint: "Modify the relevant signature to accept the value and assign it to the attribute."
+
+  - id: "RM_Fowler_27"
+    name: "Move Package"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Relocate a package and all its contents to a new directory path."
+    execution_constraint: "Update structural paths and all associated imports."
+
+  - id: "RM_Fowler_28"
+    name: "Split Package"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Divide a single package into multiple, more cohesive packages."
+    execution_constraint: "Relocate specified classes to new namespaces and update imports."
+
+  - id: "RM_Fowler_29"
+    name: "Merge Package"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Combine two or more packages into a single unified package."
+    execution_constraint: "Flatten namespaces and update all relevant import declarations."
+
+  - id: "RM_Fowler_30"
+    name: "Localize Parameter"
+    category: "Fowler"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Convert a parameter passed to a method into a local variable."
+    execution_constraint: "Remove the parameter from the signature and declare it locally."
+
+  - id: "RM_Fowler_31"
+    name: "Collapse Hierarchy"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Merge a superclass and subclass if they are not distinctly different."
+    execution_constraint: "Combine logic into a single class and remove the redundant inheritance file."
+
+  - id: "RM_Fowler_32"
+    name: "Merge Class"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Combine two cohesive classes into one."
+    execution_constraint: "Move fields and methods from the source class to the target and delete the source."
+
+  - id: "RM_Fowler_33"
+    name: "Inline Attribute"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Replace references to a class field with its value and remove the field."
+    execution_constraint: "Ensure the value is constant or safely substituted, then delete the attribute."
+
+  - id: "RM_Fowler_34"
+    name: "Split Class"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Divide a large class into two or more smaller, focused classes."
+    execution_constraint: "Extract related responsibilities into new scaffolded files and update dependencies."
+
+  - id: "RM_Fowler_35"
+    name: "Split Conditional"
+    category: "Fowler"
+    nature: "BEHAVIORAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Break a complex conditional statement into multiple separate if-statements."
+    execution_constraint: "Preserve exact logical execution paths while separating the boolean expressions."
+
+  - id: "RM_Fowler_36"
+    name: "Invert Condition"
+    category: "Fowler"
+    nature: "BEHAVIORAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Invert the logic of a boolean conditional (e.g., if true -> if !false)."
+    execution_constraint: "Swap the `if` and `else` blocks, or negate the expression. Preserve algorithmic output."
+
+  - id: "RM_Fowler_37"
+    name: "Merge Conditional"
+    category: "Fowler"
+    nature: "BEHAVIORAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Combine multiple conditionals that result in the same action."
+    execution_constraint: "Use logical OR/AND operators to merge identical execution paths."
+
+  - id: "RM_Fowler_38"
+    name: "Merge Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Combine two methods performing similar actions into one."
+    execution_constraint: "Ensure parameters are consolidated and original execution flows are preserved."
+
+  - id: "RM_Fowler_39"
+    name: "Split Method"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Divide a method doing multiple things into smaller, focused methods."
+    execution_constraint: "Extract steps into helper methods within the same class scope."
+
+  - id: "RM_Fowler_40"
+    name: "Move Code"
+    category: "Fowler"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Shift a block of code between methods in the same class."
+    execution_constraint: "Relocate the block ensuring local variables and context remain valid."
+
+  # ============================================================================
+  # CATEGORY 2: API CHANGES (53 Rules)
+  # ============================================================================
+
+  - id: "RM_API_1"
+    name: "Rename Variable"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Change the identifier of a local variable."
+    execution_constraint: "Strictly update the variable declaration and its local usages."
+
+  - id: "RM_API_2"
+    name: "Rename Parameter"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Change the identifier of a method parameter."
+    execution_constraint: "Update the signature and all usages within the method body."
+
+  - id: "RM_API_3"
+    name: "Rename Attribute"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Change the identifier of a class-level field."
+    execution_constraint: "Update the field declaration and all usages within the class."
+
+  - id: "RM_API_4"
+    name: "Move and Rename Attribute"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Relocate a field to another class and change its identifier."
+    execution_constraint: "Scaffold the new field in the target class and update all references."
+
+  - id: "RM_API_5"
+    name: "Replace Variable with Attribute"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Promote a local variable to a class-level field."
+    execution_constraint: "Declare the field at the class scope and remove the local declaration."
+
+  - id: "RM_API_6"
+    name: "Replace Attribute"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Replace one class field with another existing class field."
+    execution_constraint: "Consolidate usages to the target attribute and delete the redundant one."
+
+  - id: "RM_API_7"
+    name: "Merge Variable"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Combine two local variables into a single variable."
+    execution_constraint: "Ensure data types match and replace distinct usages with the unified variable."
+
+  - id: "RM_API_8"
+    name: "Merge Parameter"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Combine two parameters into a single object or unified parameter."
+    execution_constraint: "Update the method signature and correct all external invocation calls."
+
+  - id: "RM_API_9"
+    name: "Merge Attribute"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Combine two class fields into a single unified field."
+    execution_constraint: "Update class-level data management to rely on the single merged field."
+
+  - id: "RM_API_10"
+    name: "Split Variable"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Separate a multi-purpose local variable into two distinct variables."
+    execution_constraint: "Declare two distinct identifiers and separate their logic streams."
+
+  - id: "RM_API_11"
+    name: "Split Parameter"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Separate an object parameter into multiple primitive parameters."
+    execution_constraint: "Update the method signature and fix all calling clients."
+
+  - id: "RM_API_12"
+    name: "Split Attribute"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Separate a multi-purpose class field into two distinct fields."
+    execution_constraint: "Declare new fields and split their internal usages safely."
+
+  - id: "RM_API_13"
+    name: "Change Variable Type"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Alter the data type of a local variable."
+    execution_constraint: "Update the declaration and ensure local operations cast or handle the new type."
+
+  - id: "RM_API_14"
+    name: "Change Parameter Type"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Alter the data type of a method parameter."
+    execution_constraint: "Update the signature. This is a breaking change; callers must be updated."
+
+  - id: "RM_API_15"
+    name: "Change Return Type"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Alter the data type returned by a method."
+    execution_constraint: "Update the signature and all return statements. Callers must handle the new type."
+
+  - id: "RM_API_16"
+    name: "Change Attribute Type"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Alter the data type of a class-level field."
+    execution_constraint: "Update the field declaration and fix any internal class logic relying on the old type."
+
+  - id: "RM_API_17"
+    name: "Add Method Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Attach a new annotation or decorator to a method."
+    execution_constraint: "Insert the annotation string directly above the method signature."
+
+  - id: "RM_API_18"
+    name: "Remove Method Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Delete an annotation or decorator from a method."
+    execution_constraint: "Remove the specified annotation line. Do not alter the method logic."
+
+  - id: "RM_API_19"
+    name: "Modify Method Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Change the parameters or values of an existing method annotation."
+    execution_constraint: "Alter only the annotation definition metadata."
+
+  - id: "RM_API_20"
+    name: "Add Attribute Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Attach a new annotation to a class field."
+    execution_constraint: "Insert the annotation string directly above the field declaration."
+
+  - id: "RM_API_21"
+    name: "Remove Attribute Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Delete an annotation from a class field."
+    execution_constraint: "Remove the specified annotation line without altering the field type."
+
+  - id: "RM_API_22"
+    name: "Modify Attribute Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Change the parameters of an existing attribute annotation."
+    execution_constraint: "Alter only the annotation definition metadata."
+
+  - id: "RM_API_23"
+    name: "Add Class Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Attach a new annotation to the class declaration."
+    execution_constraint: "Insert the annotation directly above the class definition."
+
+  - id: "RM_API_24"
+    name: "Remove Class Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Delete an annotation from the class declaration."
+    execution_constraint: "Remove the specified annotation line."
+
+  - id: "RM_API_25"
+    name: "Modify Class Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Change the parameters of an existing class annotation."
+    execution_constraint: "Alter only the annotation definition metadata."
+
+  - id: "RM_API_26"
+    name: "Add Parameter Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Attach an annotation to a specific method parameter."
+    execution_constraint: "Insert the annotation inline before the parameter type."
+
+  - id: "RM_API_27"
+    name: "Remove Parameter Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Delete an annotation from a specific method parameter."
+    execution_constraint: "Remove the annotation inline. Do not change the parameter type."
+
+  - id: "RM_API_28"
+    name: "Modify Parameter Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Change the parameters of an existing parameter annotation."
+    execution_constraint: "Alter only the annotation definition metadata inline."
+
+  - id: "RM_API_29"
+    name: "Add Variable Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Attach an annotation to a local variable declaration."
+    execution_constraint: "Insert the annotation before the variable type."
+
+  - id: "RM_API_30"
+    name: "Remove Variable Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Delete an annotation from a local variable declaration."
+    execution_constraint: "Remove the specified annotation line or inline declaration."
+
+  - id: "RM_API_31"
+    name: "Modify Variable Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Change the parameters of an existing local variable annotation."
+    execution_constraint: "Alter only the annotation definition metadata."
+
+  - id: "RM_API_32"
+    name: "Add Parameter"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Add a new parameter to a method signature."
+    execution_constraint: "Modify the signature and update all external caller invocations."
+
+  - id: "RM_API_33"
+    name: "Remove Parameter"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Delete a parameter from a method signature."
+    execution_constraint: "Modify the signature, remove internal logic relying on it, and update callers."
+
+  - id: "RM_API_34"
+    name: "Reorder Parameter"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Change the sequence of parameters in a method signature."
+    execution_constraint: "Shuffle the signature order and meticulously update all calling clients."
+
+  - id: "RM_API_35"
+    name: "Add Thrown Exception Type"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Declare a new exception thrown by a method."
+    execution_constraint: "Append the exception to the signature. Callers must handle the new throw."
+
+  - id: "RM_API_36"
+    name: "Remove Thrown Exception Type"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Remove an exception declaration from a method signature."
+    execution_constraint: "Remove the exception block and adjust caller try/catch structures."
+
+  - id: "RM_API_37"
+    name: "Change Thrown Exception Type"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: true
+    safety_level: "LOW"
+    intent: "Alter the exception class thrown by a method."
+    execution_constraint: "Update the signature and adjust caller error handling scopes."
+
+  - id: "RM_API_38"
+    name: "Change Method Access Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Change method visibility (e.g., public to private)."
+    execution_constraint: "Update the access token. Ensure external scope is not broken if making private."
+
+  - id: "RM_API_39"
+    name: "Change Attribute Access Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Change field visibility (e.g., public to private)."
+    execution_constraint: "Update the access token to enforce encapsulation."
+
+  - id: "RM_API_40"
+    name: "Replace Attribute with Variable"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Demote a class-level field to a local method variable."
+    execution_constraint: "Remove the class field and declare it locally within the executing method."
+
+  - id: "RM_API_41"
+    name: "Add Method Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Add final, static, abstract, or synchronized to a method."
+    execution_constraint: "Insert the modifier token into the signature."
+
+  - id: "RM_API_42"
+    name: "Remove Method Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Remove final, static, abstract, or synchronized from a method."
+    execution_constraint: "Delete the modifier token from the signature."
+
+  - id: "RM_API_43"
+    name: "Add Attribute Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Add final, static, transient, or volatile to a field."
+    execution_constraint: "Insert the modifier token into the field declaration."
+
+  - id: "RM_API_44"
+    name: "Remove Attribute Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Remove final, static, transient, or volatile from a field."
+    execution_constraint: "Delete the modifier token from the field declaration."
+
+  - id: "RM_API_45"
+    name: "Add Variable Modifier"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Add a final/const modifier to a local variable."
+    execution_constraint: "Insert the modifier to make the variable immutable."
+
+  - id: "RM_API_46"
+    name: "Add Parameter Modifier"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Add a final/const modifier to a method parameter."
+    execution_constraint: "Insert the modifier to prevent reassignment within the method."
+
+  - id: "RM_API_47"
+    name: "Remove Variable Modifier"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Remove a final/const modifier from a local variable."
+    execution_constraint: "Delete the modifier to allow variable mutation."
+
+  - id: "RM_API_48"
+    name: "Remove Parameter Modifier"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Remove a final/const modifier from a parameter."
+    execution_constraint: "Delete the modifier token from the signature."
+
+  - id: "RM_API_49"
+    name: "Change Class Access Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Change class visibility (e.g., public to package-private)."
+    execution_constraint: "Update the class access token."
+
+  - id: "RM_API_50"
+    name: "Add Class Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Add final, static, or abstract to a class declaration."
+    execution_constraint: "Insert the modifier token."
+
+  - id: "RM_API_51"
+    name: "Remove Class Modifier"
+    category: "API Change"
+    nature: "API_CONTRACT"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Remove final, static, or abstract from a class declaration."
+    execution_constraint: "Delete the modifier token."
+
+  - id: "RM_API_52"
+    name: "Change Type Declaration Kind"
+    category: "API Change"
+    nature: "STRUCTURAL"
+    multi_file: false
+    safety_level: "LOW"
+    intent: "Convert between class, interface, enum, annotation, or record."
+    execution_constraint: "Alter the type declaration token and ensure internal compliance with the new structure."
+
+  - id: "RM_API_53"
+    name: "Move Annotation"
+    category: "API Change"
+    nature: "COSMETIC"
+    multi_file: false
+    safety_level: "TOTAL"
+    intent: "Relocate an annotation to a different target element."
+    execution_constraint: "Remove the annotation and place it above the intended new target."
+
+  # ============================================================================
+  # CATEGORY 3: MIGRATIONS (8 Rules)
+  # ============================================================================
+
+  - id: "RM_Migrate_1"
+    name: "Replace Loop with Pipeline"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Convert a traditional iterative loop into a functional stream/pipeline."
+    execution_constraint: "Transform syntax using map/filter/reduce. Algorithmic outcome must be identical."
+
+  - id: "RM_Migrate_2"
+    name: "Replace Anonymous with Lambda"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Convert an anonymous inner class to a Lambda expression."
+    execution_constraint: "Remove boilerplate class generation. Preserve internal closure logic."
+
+  - id: "RM_Migrate_3"
+    name: "Replace Pipeline with Loop"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Convert a functional stream/pipeline back into a traditional iterative loop."
+    execution_constraint: "Unroll the stream into standard loop logic. Algorithmic outcome must be identical."
+
+  - id: "RM_Migrate_4"
+    name: "Merge Catch"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Combine multiple identical catch blocks using a multi-catch statement."
+    execution_constraint: "Use the pipe operator (e.g., Catch A | B) to consolidate error handling."
+
+  - id: "RM_Migrate_5"
+    name: "Replace Anonymous with Class"
+    category: "Migration"
+    nature: "STRUCTURAL"
+    multi_file: true
+    safety_level: "MEDIUM"
+    intent: "Extract an anonymous inner class into a concrete named class."
+    execution_constraint: "Scaffold the new concrete class and instantiate it at the original site."
+
+  - id: "RM_Migrate_6"
+    name: "Replace Generic With Diamond"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Remove redundant type arguments using the diamond operator (<>)."
+    execution_constraint: "Erase duplicate generic types in instantiation statements."
+
+  - id: "RM_Migrate_7"
+    name: "Try With Resources"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Convert try-finally resource closure into a try-with-resources block."
+    execution_constraint: "Move resource declaration into the try header and safely remove explicit close() calls."
+
+  - id: "RM_Migrate_8"
+    name: "Replace Conditional With Ternary"
+    category: "Migration"
+    nature: "MIGRATION"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Convert a simple if/else assignment into a single-line ternary operator."
+    execution_constraint: "Collapse the assignment statement using `? :` syntax. Logic must be identical."
+
+  # ============================================================================
+  # CATEGORY 4: TEST SPECIFIC (5 Rules)
+  # ============================================================================
+
+  - id: "RM_Test_1"
+    name: "Parameterize Test"
+    category: "Test Specific"
+    nature: "TESTING"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Convert a standard unit test into a parameterized test to handle multiple inputs."
+    execution_constraint: "Inject the parameterization annotation and refactor hardcoded inputs to use passed variables."
+
+  - id: "RM_Test_2"
+    name: "Assert Throws"
+    category: "Test Specific"
+    nature: "TESTING"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Modernize exception testing by wrapping execution in an assertThrows block."
+    execution_constraint: "Remove @Test(expected) or try/catch blocks and use the modern assertion wrapper."
+
+  - id: "RM_Test_3"
+    name: "Assert Timeout"
+    category: "Test Specific"
+    nature: "TESTING"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Modernize timeout testing by using the assertTimeout block."
+    execution_constraint: "Remove @Test(timeout) and wrap the execution in the timeout assertion."
+
+  - id: "RM_Test_4"
+    name: "Replace Conditional with Assumption"
+    category: "Test Specific"
+    nature: "TESTING"
+    multi_file: false
+    safety_level: "HIGH"
+    intent: "Convert guard conditionals in tests to formal Assumptions (e.g., assumeTrue)."
+    execution_constraint: "Replace if-returns with assumption statements that abort the test cleanly."
+
+  - id: "RM_Test_5"
+    name: "Extract Fixture"
+    category: "Test Specific"
+    nature: "TESTING"
+    multi_file: false
+    safety_level: "MEDIUM"
+    intent: "Pull repetitive setup code from individual tests into a Setup/BeforeEach method."
+    execution_constraint: "Promote local variables to class fields and move instantiation logic to the lifecycle hook."
